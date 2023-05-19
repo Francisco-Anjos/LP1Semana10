@@ -34,6 +34,34 @@ namespace StringCollections
             hashSet.Add("V");
             hashSet.Add("S");
             hashSet.Add("V");
-        }
+
+                    Console.WriteLine("List:");
+            foreach (string letter in list)
+            {
+                Console.WriteLine(letter);
+            }
+
+            //Stacks
+            Console.WriteLine("\nStack:");
+            foreach (string letter in stack)
+            {
+                Console.WriteLine(letter);
+            }
+
+            //Queues
+            Console.WriteLine("\nQueue:");
+            foreach (string letter in queue)
+            {
+                Console.WriteLine(letter);
+            }
+
+            //HashSets
+            Console.WriteLine("\nHashSet:");
+            foreach (string letter in hashSet)
+            {
+                Console.WriteLine(letter);
+            }
+        } 
     }
 }
+        
