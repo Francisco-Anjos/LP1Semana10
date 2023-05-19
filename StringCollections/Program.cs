@@ -14,6 +14,8 @@ namespace StringCollections
 
             HashSet<string> hashSet = new HashSet<string>();
 
+
+            list.AddRange(new string[] { "D", "F", "V", "S", "V" });
         }
     }
 }
