@@ -6,7 +6,14 @@ namespace StringCollections
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            List<string> list = new List<string>();
+
+            Stack<string> stack = new Stack<string>();
+
+            Queue<string> queue = new Queue<string>();
+
+            HashSet<string> hashSet = new HashSet<string>();
+
         }
     }
 }
