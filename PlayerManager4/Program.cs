@@ -1,5 +1,6 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerManager4
 {
@@ -19,9 +20,9 @@ namespace PlayerManager4
         /// <param name="args">Not used.</param>
         private static void Main(string[] args)
         {
-            // Create a new instance of the player listing program
+            //Create a new instance of the player listing program
             Program prog = new Program();
-            // Start the program instance
+            //Start the program instance
             prog.Start();
         }
 
@@ -30,8 +31,8 @@ namespace PlayerManager4
         /// </summary>
         private Program()
         {
-            // Initialize the player list with two players using collection
-            // initialization syntax
+            //Initialize the player list with two players using collection
+            //initialization syntax
             playerList = new List<Player>() {
                 new Player("Best player ever", 100),
                 new Player("An even better player", 500)
@@ -43,21 +44,21 @@ namespace PlayerManager4
         /// </summary>
         private void Start()
         {
-            // We keep the user's option here
+            //We keep the user's option here
             string option;
 
             // Main program loop
             do
             {
-                // Show menu and get user option
+                //Show menu and get user option
                 ShowMenu();
                 option = Console.ReadLine();
 
-                // Determine the option specified by the user and act on it
+                //Determine the option specified by the user and act on it
                 switch (option)
                 {
                     case "1":
-                        // Insert player
+                        //Insert player
                         InsertPlayer();
                         break;
                     case "2":
@@ -69,18 +70,50 @@ namespace PlayerManager4
                     case "4":
                         Console.WriteLine("Bye!");
                         break;
+                    case "5":
+                        //List players sorted by name in ascending order
+                        ListPlayersSortedByName(true);
+                        break;
+                    case "6":
+                        //List players sorted by name in descending order
+                        ListPlayersSortedByName(false);
+                        break;
                     default:
                         Console.Error.WriteLine("\n>>> Unknown option! <<<\n");
                         break;
                 }
 
-                // Wait for user to press a key...
+                // Wait for the user to press a key...
                 Console.Write("\nPress any key to continue...");
                 Console.ReadKey(true);
                 Console.WriteLine("\n");
 
-                // Loop keeps going until players choses to quit (option 4)
+                // Loop keeps going until the player chooses to quit (option 4)
             } while (option != "4");
+        }
+
+        /// <summary>
+        /// List player names more easily
+        /// </summary>
+        /// <param name="ascending"></param>
+        private void ListPlayersSortedByName(bool ascending)
+        {
+            Console.WriteLine("\nList of players sorted by name");
+            Console.WriteLine("-------------\n");
+
+            // Create a comparer for sorting players by name
+            var comparer = new CompareByName(ascending);
+
+            // Sort the players using the comparer
+            var sortedPlayers = playerList.OrderBy(p => p, comparer);
+
+            // Show each player in the sorted list
+            foreach (Player p in sortedPlayers)
+            {
+                Console.WriteLine($" -> {p.Name} with a score of {p.Score}");
+            }
+
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -145,22 +178,6 @@ namespace PlayerManager4
         /// <summary>
         /// Show all players with a score higher than a user-specified value.
         /// </summary>
-        private static void ListPlayers(IEnumerable<Player> playersToList)
-        {
-            Console.WriteLine("\nList of players");
-            Console.WriteLine("-------------\n");
-
-            // Sort the players by score in descending order
-            var sortedPlayers = playersToList.OrderByDescending(p => p.Score);
-
-            // Show each player in the sorted list
-            foreach (Player p in sortedPlayers)
-            {
-                Console.WriteLine($" -> {p.Name} with a score of {p.Score}");
-            }
-            Console.WriteLine();
-        }
-
         private void ListPlayersWithScoreGreaterThan()
         {
             // Minimum score user should have in order to be shown
@@ -171,7 +188,7 @@ namespace PlayerManager4
             minScore = Convert.ToInt32(Console.ReadLine());
 
             // Get players with score higher than the user-specified value
-            var playersWithScoreGreaterThan = GetPlayersWithScoreGreaterThan(minScore);
+            var playersWithScoreGreaterThan = playerList.Where(p => p.Score > minScore);
 
             // Sort the players by score in descending order
             playersWithScoreGreaterThan = playersWithScoreGreaterThan.OrderByDescending(p => p.Score);

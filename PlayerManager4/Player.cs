@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+
+
 namespace PlayerManager4
 {
     public class Player :IComparable<Player>
