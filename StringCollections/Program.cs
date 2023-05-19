@@ -16,6 +16,12 @@ namespace StringCollections
 
 
             list.AddRange(new string[] { "D", "F", "V", "S", "V" });
+
+            stack.Push("D");
+            stack.Push("F");
+            stack.Push("V");
+            stack.Push("S");
+            stack.Push("V");
         }
     }
 }
